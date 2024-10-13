@@ -4,13 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smoke Detection Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chart {
+            margin: 20px 0;
+        }
+
+        iframe {
+            border: 2px solid #6200ea;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3700b3;
+        }
+
+        footer {
+            background-color: #6200ea;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Smoke Detection Data</h1>
-    <!-- ThingSpeak Channel Visualization -->
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" 
-        src="https://thingspeak.com/channels/2693907/charts/1?api_key=3FSD1K6XBYL2XZT3&dynamic=true&results=60">
-    </iframe>
-    <p>Real-time Smoke Sensor Data</p>
+    <header>
+        <h1>Smoke Detection Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <h2>Real-time Smoke Sensor Data</h2>
+
+        <div class="chart">
+            <!-- ThingSpeak Channel Visualization -->
+            <iframe width="600" height="300" src="https://thingspeak.com/channels/YOUR_CHANNEL_ID/charts/1?api_key=YOUR_API_KEY&dynamic=true&results=60"></iframe>
+        </div>
+
+        <button onclick="window.location.reload();">Refresh Data</button>
+    </div>
+
+    <footer>
+        <p>Powered by <a href="https://thingspeak.com" target="_blank">ThingSpeak</a> | &copy; 2024 Smoke Detection</p>
+    </footer>
 </body>
 </html>
