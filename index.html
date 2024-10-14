@@ -35,31 +35,11 @@
             color: #333;
         }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            max-width: 80%;
-            margin-top: 20px;
-        }
-
-        h2 {
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .chart {
+        .button-container {
             margin: 20px 0;
         }
 
-        iframe {
-            border: 3px solid #6200ea;
-            border-radius: 8px;
-        }
-
-        button {
+        .nav-button {
             background-color: #6200ea;
             color: white;
             border: none;
@@ -67,12 +47,26 @@
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 20px;
+            margin: 0 10px;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
+        .nav-button:hover {
             background-color: #3700b3;
+        }
+
+        .chart-container {
+            display: none; /* Hide all charts initially */
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            width: 40%;
+        }
+
+        .active {
+            display: block; /* Show the active chart */
         }
 
         footer {
@@ -89,7 +83,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
     </style>
 </head>
 <body>
@@ -97,19 +90,62 @@
         <h1>Smoke Detection Dashboard</h1>
     </header>
 
-    <div class="container">
-        <h2>Real-time Smoke Sensor Data</h2>
-
-        <div class="chart">
-            <!-- ThingSpeak Channel Visualization -->
-            <iframe width="600" height="300" src="https://thingspeak.com/channels/2693907/charts/2?api_key=3FSD1K6XBYL2XZT3&dynamic=true&results=60"></iframe>
-        </div>
-
-        <button onclick="window.location.reload();">Refresh Data</button>
+    <div class="button-container">
+        <button class="nav-button" onclick="showChart(1)">Smoke Data</button>
+        <button class="nav-button" onclick="showChart(2)">Temperature Data</button>
+        <button class="nav-button" onclick="showChart(3)">Light Data</button>
     </div>
+
+    <div id="chart1" class="chart-container active">
+        <h2>Smoke Intensity</h2>
+        <iframe width="470" height="250" src="https://thingspeak.com/channels/2693907/charts/1?api_key=3FSD1K6XBYL2XZT3&dynamic=true&results=60"></iframe>
+    </div>
+
+    <div id="chart2" class="chart-container">
+        <h2>Temperature</h2>
+        <iframe width="470" height="250" src="https://thingspeak.com/channels/2693907/charts/2?api_key=3FSD1K6XBYL2XZT3&dynamic=true&results=60"></iframe>
+    </div>
+
+    <div id="chart3" class="chart-container">
+        <h2>Light Intensity</h2>
+        <iframe width="470" height="250" src="https://thingspeak.com/channels/2693907/charts/3?api_key=3FSD1K6XBYL2XZT3&dynamic=true&results=60"></iframe>
+    </div>
+
+    <button 
+    onclick="window.location.reload();" 
+    style="margin-top: 20px; 
+           background-color: #6200ea; 
+           color: white; 
+           border: none; 
+           padding: 12px 24px; 
+           border-radius: 5px; 
+           font-size: 1rem; 
+           cursor: pointer; 
+           transition: background-color 0.3s ease;">
+    Refresh 
+</button>
+
 
     <footer>
         <p>Powered by <a href="https://thingspeak.com" target="_blank">ThingSpeak</a> | &copy; 2024 Smoke Detection</p>
     </footer>
+
+    <script>
+        function showChart(chartNumber) {
+            // Hide all charts
+            const charts = document.querySelectorAll('.chart-container');
+            charts.forEach(chart => {
+                chart.classList.remove('active');
+            });
+
+            // Show the selected chart
+            document.getElementById('chart' + chartNumber).classList.add('active');
+        }
+// Automatically refresh the page every 15 seconds (15000 milliseconds)
+setInterval(function() {
+    window.location.reload();
+}, 15000);
+
+    </script>
 </body>
 </html>
